@@ -6,7 +6,7 @@ class Animal:
         self.alive = alive
 
     def eat(self, food):
-        if food.edible == True:
+        if food.edible:
             print(f'{self.name} съел {food.name}')
             self.fed = True
         else:
