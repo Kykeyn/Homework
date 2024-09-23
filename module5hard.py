@@ -2,8 +2,6 @@ from time import sleep
 
 
 class User:
-    """_summary_"""
-
     def __init__(self, nickname: str, password: str, age: int):
         self.nickname = str(nickname)
         self.password = hash(password)
@@ -28,11 +26,11 @@ class UrTube:
         self.videos: dict[str, Video] = {}
 
     def log_in(self, nickname: str, password: str):
-        """_summary_
+        """функция входа в аккаунт
 
         Args:
-            nickname (str): _description_
-            password (str): _description_
+            nickname (str): имя пользователя
+            password (str): пароль пользователя
         """
 
         if nickname in self.users.keys():
@@ -40,6 +38,14 @@ class UrTube:
                 self.current_user = self.users[nickname]
 
     def register(self, nickname, password, age):
+        """функция регистрации пользователя
+
+        Args:
+            nickname (str): имя пользователя
+            password (str): пароль пользователя
+            age (int): возраст пользователя
+        """
+
         if nickname in self.users.keys():
             print(f"Пользователь {nickname} уже существует")
             return
@@ -48,21 +54,43 @@ class UrTube:
         self.current_user = user
 
     def log_out(self):
+        """функция выхода из аккаунта"""
+
         self.current_user = None
 
-    def add(self, *video):
+    def add(self, *video: Video):
+        """функция добавления видео
+
+        Args:
+            video (Video): видео
+        """
+
         for clip in video:
             if clip.title.lower() not in map(str.lower, self.videos.keys()):
                 self.videos[clip.title] = clip
 
-    def get_videos(self, name):
+    def get_videos(self, name: str):
+        """функция поиска видео
+
+        Args:
+            name (str): название видео
+        """
+
         return [
             clip.title
             for clip in self.videos.values()
             if name.lower() in clip.title.lower()
         ]
 
-    def watch_video(self, title):
+    def watch_video(self, title: str):
+        """функция просмотра видео
+           проверяет возраст пользователя
+
+
+        Args:
+            title (str): название видео
+        """
+
         if self.current_user is None:
             print("Войдите в аккаунт, чтобы смотреть видео")
             return
