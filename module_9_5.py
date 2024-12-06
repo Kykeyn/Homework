@@ -4,6 +4,9 @@ class StepValueError(ValueError):
 
 class Iterator:
     def __init__(self, start, stop, step=1):
+        if step == 0:
+            raise StepValueError
+        
         self.start = start
         self.stop = stop
         self.step = step
